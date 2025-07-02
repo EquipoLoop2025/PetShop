@@ -6,7 +6,8 @@ app = Flask(__name__)
 def inicio():
     return render_template('index.html')
 
-@app.route("/")
-def home():
-    return render_template("base.html")  
+
+
+
+
 
