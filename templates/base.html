@@ -10,15 +10,23 @@
     <header>
         <h1>PetShop</h1>
         <nav>
-            <a href="/">Inicio</a>
-            <a href="/login">Login</a>
-            <a href="/catalogo">Catálogo
-            <a href="/misproductos">Mis Productos</a>
+           <ul>
+            <li><a href="{{url_for('index')}}">Inicio</a></li>
+           </ul>
         </nav>
     </header>
 
-    <main>
+    <main class="container">
+        {%with messages = get_flashed_messages(with_categories=true)%}
+            {%if messages%}
+                {%for category, message in messages%}
+                    <div class="alert alert-{{ category}}">{{ message }}</div>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
+            
         {% block content %}
+
         {% endblock %}
     </main>
 

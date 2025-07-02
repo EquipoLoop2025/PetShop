@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Bienvenido a PetShop</h3>
-<p>En nuestra tienda encontrarás los mejores productos para tus mascotas.</p>
+<h1>Artículos disponibles</h1>
+<div class="card-container">
+    {%for articulo in articulos%}
+    <div class="card">
+        <h2>{{articulo.nombre}}</h2>
+        <p>{{articulo.descripcion}}</p>
+        <p class="price">${{"%.2f"|format(articulo.precio)}}</p>
+    </div>
+    {%else%}
+    <p>No hay artículos disponibles en este momento</p>
+    {%endfor%}
+</div>
 {% endblock %}

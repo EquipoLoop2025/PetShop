@@ -1,28 +1,157 @@
+/* static/css/style.css */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
+    margin: 0;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+nav {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav a.brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+nav ul {
+    list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
 }
-
-header {
-    background-color: #f3f3f3;
-    padding: 15px;
-    text-align: center;
+nav ul li {
+    margin-left: 20px;
 }
-
-nav a {
-    margin: 0 10px;
+nav ul li a {
+    color: white;
     text-decoration: none;
-    color: #333;
+}
+nav ul li span {
+    color: #ccc;
 }
 
-main{
-    
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+.alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+.alert-warning { color: #856404; background-color: #fff3cd; border-color: #ffeeba; }
+.alert-info { color: #0c5460; background-color: #d1ecf1; border-color: #bee5eb; }
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
     text-align: center;
+}
+.btn-primary { background-color: var(--primary-color); }
+.btn-secondary { background-color: var(--secondary-color); }
+.btn-danger { background-color: var(--danger-color); }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th { background-color: #f2f2f2; }
+td.actions { display: flex; gap: 10px; }
+td.actions form { margin: 0; }
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Formularios */
+.auth-form, .item-form {
+    background: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 20px auto;
+}
+.auth-form label, .item-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.auth-form input, .item-form input, .item-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Importante */
+}
+.item-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Vista de Comprador */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+.card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.card h2 { margin-top: 0; }
+.card .price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: right;
 }
 
 footer {
-    background-color: #f3f3f3;
-    padding: 15px;
     text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: #e9ecef;
+    color: #6c757d;
 }
