@@ -60,7 +60,12 @@ def login():
             flash(f'Error al Inciar Sesion:{e}', 'danger')
             return redirect(url_for('login'))
     return render_template('login.html')
-
+@app.route('/catalogo')
+def catalogo():
+    return render_template("catalogo.html")
+@app.route('/logout')
+def logout():
+    return render_template("index.html")
 
 
 
