@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form class="auth-form">
+    <section class="seccion-informacion">
+      <h2>Registro</h2>
+
+      <div>
+        <input type="text" name="nombre" id="nombre" required minlength="3" maxlength="30" placeholder="Tu nombre">
+        <label class="label-nombre">Nombre</label>
+      </div>
+      <p></p>
+
+      <div>
+        <input type="email" name="email" id="email" required placeholder="ejemplo@email.com">
+        <label class="label-email">Email</label>
+      </div>
+      <p></p>
+
+      <div>
+        <input type="password" name="password" id="password" required minlength="6" maxlength="20" placeholder="Mínimo 6 caracteres">
+        <label class="label-contraseña">Contraseña</label>
+      </div>
+      <p></p>
+
+    </section>
+
+    <section class="seccion-botones">
+      <button type="submit">Registrarse</button>
+      <p>¿Ya tienes una cuenta? <a href="login.html">Iniciar sesión</a></p>
+    </section>
+  </form>
+{% endblock %}

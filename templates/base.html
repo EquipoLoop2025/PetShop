@@ -8,10 +8,18 @@
 </head>
 <body>
     <header>
-        <h1>PetShop</h1>
         <nav>
+            <a href="{{url_for('index')}}"class="brand">Mi Tienda</a>
            <ul>
-            <li><a href="{{url_for('index')}}">Inicio</a></li>
+            {%if session['user'] %}
+                <li><a href="{{url_for('index')}}">Inicio</a></li>
+                <li><a href="{{url_for('catalogo')}}">Mis Artículos</a></li>
+                <li><span>Hola, {{session['user_email']}}</span></li>
+                <li><a href="{{url_for('logout')}}">Cerrar Sesión</a></li>
+            {%else%}
+                <li><a href="{{url_for('login')}}">Inciar Sesión</a></li>
+                <li><a href="{{url_for('register')}}">Registrarse</a></li>
+            {%endif%}
            </ul>
         </nav>
     </header>

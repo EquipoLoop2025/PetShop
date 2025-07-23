@@ -101,7 +101,7 @@ td.actions form { margin: 0; }
 }
 
 /* Formularios */
-.auth-form, .item-form {
+.auth-form.aut, .item-form {
     background: white;
     padding: 30px;
     border-radius: 5px;
