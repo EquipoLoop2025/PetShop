@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 from supabase import create_client, Client
@@ -27,6 +28,24 @@ def index():
     except Exception as e:
         flash(f'Error al cargar articulos:{e}', 'danger')
         return render_template('index.html', articulos = [])
+
+@app.route('/register', methods = ['GET','POST'])
+def register():
+    if request.method == 'POST' :
+        email = request.form['email']
+        password = request.form['password']
+        try: 
+            user = supabase.auth.sing_up({'email': email, 'password' :password})
+            flash('Registro Exitoso', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash(f'Error al Registrarse:{e}', 'danger')
+            return redirect(url_for('register'))
+    return render_template('register.html')    
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 
 
