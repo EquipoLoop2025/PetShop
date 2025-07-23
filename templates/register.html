@@ -1,33 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <form class="auth-form">
+  <form class="auth-form" method="post">
     <section class="seccion-informacion">
       <h2>Registro</h2>
 
       <div>
+        <label class="label-nombre">👤 Nombre</label>
         <input type="text" name="nombre" id="nombre" required minlength="3" maxlength="30" placeholder="Tu nombre">
-        <label class="label-nombre">Nombre</label>
       </div>
       <p></p>
 
       <div>
+        <label class="label-email">📩 Email</label>
         <input type="email" name="email" id="email" required placeholder="ejemplo@email.com">
-        <label class="label-email">Email</label>
       </div>
       <p></p>
 
       <div>
+        <label class="label-contraseña">🔒 Contraseña</label>
         <input type="password" name="password" id="password" required minlength="6" maxlength="20" placeholder="Mínimo 6 caracteres">
-        <label class="label-contraseña">Contraseña</label>
       </div>
       <p></p>
 
     </section>
 
     <section class="seccion-botones">
-      <button type="submit">Registrarse</button>
-      <p>¿Ya tienes una cuenta? <a href="login.html">Iniciar sesión</a></p>
+      <button type="submit" class="btn btn-primary">Registrarse</button>
+      <p>¿Ya tienes una cuenta? <a href="{{url_for('login')}}">Iniciar sesión</a></p>
     </section>
   </form>
 {% endblock %}

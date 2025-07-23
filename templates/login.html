@@ -2,28 +2,29 @@
 
 {% block content %}
     <div class="auth-form">
-        <h1>Inicio de Sesión</h1>
+        <h2>Inicio de Sesión</h2>
         <form method="post">
 
             <div>
-                <input type="text" name="usuario" required minlength="3" maxlength="20" placeholder="Tu nombre de usuario">
                 <label>👤 Nombre de usuario</label>
+                <input type="text" name="usuario" required minlength="3" maxlength="20" placeholder="Tu nombre de usuario">
             </div>
             <p></p>
 
             <div class="contrasena">
-                <input type="password" name="password" required minlength="6" maxlength="20" placeholder="Tu contraseña">
                 <label>🔒 Contraseña</label>
+                <input type="password" name="password" required minlength="6" maxlength="20" placeholder="Tu contraseña">
             </div>
 
+            <p></p>
+            
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+            <p></p>
+            
             <div class="recordar">¿Olvidó su contraseña? <a href="">Recuperar</a></div>
             <p></p>
-
-            <input type="submit" value="Iniciar sesión">
-            <p></p>
-
             <div>
-                ¿No tienes cuenta? <a href="register.html">Registrarse</a>
+                ¿No tienes cuenta? <a href="{{url_for('register')}}">Registrarse</a>
             </div>
         </form>
     </div>
