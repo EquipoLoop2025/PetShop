@@ -61,6 +61,47 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html')
 
+@app.route('/catalogo')
+def catalogo():
+    return render_template("catalogo.html")
+
+@app.route('/logout')
+def logout():
+    return render_template("index.html")
+
+@app.route('/create_article', methods=['GET', 'POST'])
+def create_article():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        descripcion = request.form['descripcion']
+        precio = request.form['precio']
+        categoria = request.form['categoria']
+        imagen = request.form['imagen']
+
+        # Validaciones
+        if not nombre or not descripcion or not precio or not categoria:
+            flash('Todos los campos son obligatorios', 'danger')
+            return redirect(url_for('create_article'))
+
+        try:
+            # Insertar el artículo en la base de datos
+            supabase.table('productos').insert({
+                'nombre': nombre,
+                'descripcion': descripcion,
+                'precio': precio,
+                'categoria': categoria,
+                'imagen': imagen
+            }).execute()
+            flash('Artículo creado exitosamente', 'success')
+            return redirect(url_for('index'))
+        except Exception as e:
+            flash(f'Error al crear el artículo: {e}', 'danger')
+            return redirect(url_for('create_article'))
+
+    return render_template('create_article.html')
+
+
+
 
 
 
