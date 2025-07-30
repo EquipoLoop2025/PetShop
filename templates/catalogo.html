@@ -2,69 +2,40 @@
 
 {% block content %}
 
-    <h1>catalogo de el petshop</h1>
+<div class="header-actions">
+    <h1>Mis Artículos</h1>
 
-    
-<input type="text" id="buscador" placeholder="Buscar Alimentos..." onkeyup="filtrarAlimentos()">3   
+</div>
 
- <label>Categoría:
-    <select id="categoria" onchange="filtrarAlimentos()">
-      <option value="">Todas</option>
-      <option value="adulto">Adulto</option>
-      <option value="cachorro">Cachorro</option>
-      <option value="senior">Viejo</option>
-    </select>
-  </label>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for articulo in articulos%}
+    <tr>
+      <td>{{articulo.nombre}}</td>
+      <td>{{articulo.descripcion}}</td>
+      <td>{{articulo.precio}}</td>
+      <td class="actions">
+        <a class="btn btn-secondary" href="{{url_for(index)}}">Editar</a>
+        <form action="{{url_for(index)}}" method="post" onsubmit="return confirm('Seguro desea eliminar')" >
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {%else%}
+    <tr>
+      <td colspan="4">No se ha creado ningún artículo</td>
+    </tr>
+    {%endfor%}
+  </tbody>
 
-  <label>Precio mínimo:
-    <input type="number" id="precioMin" oninput="filtrarAlimentos()">
-  </label>
+</table>
 
-  <label>Precio máximo:
-    <input type="number" id="precioMax" oninput="filtrarAlimentos()">
-  </label>
-
-  <label>Orden:
-    <select id="orden" onchange="filtrarAlimentos()">
-      <option value="az">A-Z</option>
-      <option value="za">Z-A</option>
-    </select>
-  </label>
-
-<p id="mensaje-vacio" style="display: none; color: red;">No se encontraron productos.</p>
-
-<div id="loader" class="spinner"></div>
-
-<div id="lista-Alimentos">
-    <div class="Alimentos" data-categoria="cachorro" data-precio="10000">
-         <h2>Alimento pe</h2>
-         <img src="https://i5-mx.walmartimages.com/gr/images/product-images/img_large/00002310004103L.jpg" alt="Alimento pe">
-         <p>Alimento para perros cachorros 5kg</p>
-         <p>10000</p>
-    </div>
-    <div class="Alimentos" data-categoria="adulto" data-precio="20000">
-         <h2>Alimento pe</h2>
-         <img src="https://i5-mx.walmartimages.com/mg/gm/1p/images/product-images/img_large/00750617451243l.jpg" alt="Alimento pe">
-         <p>Alimento para perros adulto 17kg +2kg gartis</p>
-         <p>20000</p>
-    </div>
-    <div class="Alimentos" data-categoria="cachorro" data-precio="9000">
-         <h2>Alimento pe</h2>
-         <img src="https://i5-mx.walmartimages.com/gr/images/product-images/img_large/00002310004103L.jpg" alt="Alimento pe">
-         <p>Alimento para perros cachorros 2kg</p>
-         <p>9000</p>
-    </div>
-</div> 
-
-<div id="modal">
-    <div>
-      <button id="cerrarModal">✖</button>
-      <h2 id="modalNombre"></h2>
-      <img id="modalImagen" src="" alt="" />
-      <p id="modalDescripcion"></p>
-      <p>
-        <strong>Precio: </strong><span id="modalPrecio"></span>
-      </p>
-    </div>
-  </div>
   {% endblock %}
