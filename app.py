@@ -60,12 +60,84 @@ def login():
             flash(f'Error al Inciar Sesion:{e}', 'danger')
             return redirect(url_for('login'))
     return render_template('login.html')
+
 @app.route('/catalogo')
 def catalogo():
-    return render_template("catalogo.html")
+    if 'user' not in session:
+        return redirect (url_for('login'))
+    
+    usuario_id = session['user'] 
+    try:
+        response = supabase.table('productos').select('*').eq('usuario_id', usuario_id).execute() 
+        productos = response.data
+        return render_template("catalogo.html",  articulos = productos)
+
+    except Exception as e:
+        flash(f'Error al cargar articulos:{e}', 'danger')
+        return render_template('catalogo.html', articulos = [])
+
+    return render_template("catalogo.html", articulos = [])
+
 @app.route('/logout')
 def logout():
+    session.pop('user', None)
+    session.pop('user_email', None)
+    flash("Sesion Cerrada", "info")
     return render_template("index.html")
+
+@app.route('/create_article', methods=['GET', 'POST'])
+def create_article():
+    if 'user' not in session:
+        return redirect (url_for('login'))
+
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        descripcion = request.form['descripcion']
+        stock = request.form['stock']
+        precio = request.form['precio']
+        categoria = request.form['categoria']
+        usuario_id = session['user']
+
+        # Validaciones
+        if not nombre or not descripcion or not precio or not stock or not categoria or not usuario_id:
+            flash('Todos los campos son obligatorios', 'danger')
+            return redirect(url_for('create_article'))
+
+        try:
+            # Insertar el artículo en la base de datos
+            supabase.table('productos').insert({
+                'nombre': nombre,
+                'descripcion': descripcion,
+                'precio': precio,
+                'stock': stock,
+                'categoria': categoria,
+                'usuario_id': usuario_id,
+            }).execute()
+            flash('Artículo creado exitosamente', 'success')
+            return redirect(url_for('index'))
+        except Exception as e:
+            flash(f'Error al crear el artículo: {e}', 'danger')
+            return redirect(url_for('create_article'))
+
+    return render_template('create_article.html')
+
+@app.route('/delete_article/<int: id>', methods=['POST'])
+def delete_article(id):
+    if 'user' not in session:
+        return redirect (url_for('login'))
+
+    usuario_id = session['user'] 
+    try:
+        supabase.table('articulos').delete().eq('id', id).eq('usuario_id', usuario_id).execute()
+        flash("Articulo Eliminado Correctamente", 'succes')
+    except Exception as e:
+        flash(f'Error al Eliminar Articulo:{e}', 'danger')
+    return redirect(url_for('catalogo'))
+    
+    
+
+
+
 
 
 
