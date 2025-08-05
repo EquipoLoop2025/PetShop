@@ -136,6 +136,54 @@ def delete_article(id):
     
     
 
+@app.route('/edit_article/<int:id>', methods=['GET', 'POST'])
+def edit_article(id):
+    #Validacion de Session
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    usuario_id = session['user']
+    
+    # Obtener el artículo existente
+    response = supabase.table('productos').select('*').eq('id', id).eq('usuario_id', usuario_id).execute()
+    articulo = response.data
+
+    #Validacuion de Articulo
+    if not articulo:
+        flash('Artículo no encontrado', 'danger')
+        return redirect(url_for('catalogo'))
+
+    articulo = articulo[0]  # Obtener el primer (y único) artículo
+
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        descripcion = request.form['descripcion']
+        stock = request.form['stock']
+        precio = request.form['precio']
+        categoria = request.form['categoria']
+
+        # Validaciones de los datos
+        if not nombre or not descripcion or not precio or not stock or not categoria:
+            flash('Todos los campos son obligatorios', 'danger')
+            return redirect(url_for('edit_article', id=id))
+
+        try:
+            # Actualizar el artículo en la base de datos
+            supabase.table('productos').update({
+                'nombre': nombre,
+                'descripcion': descripcion,
+                'precio': precio,
+                'stock': stock,
+                'categoria': categoria,
+            }).eq('id', id).eq('usuario_id', usuario_id).execute()
+            flash('Artículo actualizado exitosamente', 'success')
+            return redirect(url_for('catalogo'))
+        except Exception as e:
+            flash(f'Error al actualizar el artículo: {e}', 'danger')
+            return redirect(url_for('edit_article', id=id))
+
+    return render_template('edit_article.html', articulo=articulo)
+
 
 
 
