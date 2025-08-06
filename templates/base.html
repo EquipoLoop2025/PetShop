@@ -13,7 +13,7 @@
            <ul>
             {%if session['user'] %}
                 <li><a href="{{url_for('index')}}">Inicio</a></li>
-                <li><a href="">Mis Artículos</a></li>
+                <li><a href="{{url_for('catalogo')}}">Mis Artículos</a></li>
                 <li><span>Hola, {{session['user_email']}}</span></li>
                 <li><a href="{{url_for('logout')}}">Cerrar Sesión</a></li>
             {%else%}

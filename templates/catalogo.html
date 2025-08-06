@@ -4,7 +4,7 @@
 
 <div class="header-actions">
     <h1>Mis Artículos</h1>
-
+    <a href="{{url_for('create_article')}}">Crear nuevo</a>
 </div>
 
 <table>
@@ -23,19 +23,19 @@
       <td>{{articulo.descripcion}}</td>
       <td>{{articulo.precio}}</td>
       <td class="actions">
-        <a class="btn btn-secondary" href="{{url_for(index)}}">Editar</a>
-        <form action="{{url_for(index)}}" method="post" onsubmit="return confirm('Seguro desea eliminar')" >
+        <a class="btn btn-secondary" href="{{url_for('index')}}">Editar</a>
+        <form action="{{url_for('delete_article', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro desea eliminar')" >
           <button type="submit" class="btn btn-danger">Eliminar</button>
         </form>
       </td>
     </tr>
-    {%else%}
+    {% else %}
     <tr>
       <td colspan="4">No se ha creado ningún artículo</td>
     </tr>
-    {%endfor%}
+    {% endfor %}
   </tbody>
 
 </table>
 
-  {% endblock %}
+{% endblock %}

@@ -7,10 +7,12 @@
     <input type="text" name="nombre" id="nombre" value="{{ articulo.nombre if articulo else '' }}" required>
 
     <label for="descripcion">Descripción</label>
-    <textarea name="descripcion id="descripcion>{{ articulo.descripcion if articulo else '' }}</textarea>
+    <textarea name="descripcion" id="descripcion">{{ articulo.descripcion if articulo else '' }}</textarea>
+    <label for="stock">stock</label>
+    <input type="number" step="0.01" name="stock" id="stock" value="{{ articulo.stock if articulo else '' }}"required>
 
     <label for="precio"> Precio</label>
-    <input type="number" step="0.01" name="password" id="precio" value="{{ articulo.precio if articulo else '' }}"required>
+    <input type="number" step="0.01" name="precio" id="precio" value="{{ articulo.precio if articulo else '' }}"required>
 
     <label for="categoria">Categoría</label>
         <select name="categoria" id="categoria">
