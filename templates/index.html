@@ -8,6 +8,7 @@
         <h2>{{articulo.nombre}}</h2>
         <p>{{articulo.descripcion}}</p>
         <p class="price">${{"%.2f"|format(articulo.precio)}}</p>
+        <button type="submit" class="btn btn-primary">{{ accion }}Agregar al carrito</button>
     </div>
     {%else%}
     <p>No hay artículos disponibles en este momento</p>

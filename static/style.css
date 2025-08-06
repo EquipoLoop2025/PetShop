@@ -114,7 +114,7 @@ td.actions form { margin: 0; }
     margin-bottom: 5px;
     font-weight: bold;
 }
-.auth-form input, .item-form input, .item-form textarea {
+.auth-form input, .item-form input, .item-form textarea, .item-form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;

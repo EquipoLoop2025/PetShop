@@ -83,7 +83,7 @@ def logout():
     session.pop('user', None)
     session.pop('user_email', None)
     flash("Sesion Cerrada", "info")
-    return render_template("index.html")
+    return redirect (url_for('index'))
 
 @app.route('/create_article', methods=['GET', 'POST'])
 def create_article():
@@ -135,6 +135,9 @@ def delete_article(id):
         print(e)
     return redirect(url_for('catalogo'))
     
+@app.route('/carrito')
+def carrito():
+    return render_template("carrito.html") 
     
 
 

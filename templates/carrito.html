@@ -3,9 +3,10 @@
 {% block content %}
 
 <div class="header-actions">
-    <h1>Mis Artículos</h1>
-    <a class="btn btn-primary" href="{{url_for('create_article')}}">Crear nuevo</a>
-</div>
+    <h1>Mi carrito</h1>
+  </div>
+  
+{% if articulos %}
 
 <table>
   <thead>
@@ -24,18 +25,23 @@
       <td>{{articulo.precio}}</td>
       <td class="actions">
         <a class="btn btn-secondary" href="{{url_for('index')}}">Editar</a>
-        <form action="{{url_for('delete_article', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro desea eliminar')" >
-          <button type="submit" class="btn btn-danger">Eliminar</button>
+        <form action="{{url_for('delete_article', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro desea quitar')" >
+          <button type="submit" class="btn btn-danger">Quitar</button>
         </form>
       </td>
     </tr>
-    {% else %}
-    <tr>
-      <td colspan="4">No se ha creado ningún artículo</td>
-    </tr>
+    
     {% endfor %}
   </tbody>
 
 </table>
+
+<p></p>
+<a class="btn btn-primary" href="{{url_for('index')}}">Realizar pago</a>
+
+{% else %}
+  <p>No hay ningún producto en el carrito.</p>
+  <a href="{{ url_for('index') }}">Agregar productos a tu carrito</a>
+{% endif %}
 
 {% endblock %}
