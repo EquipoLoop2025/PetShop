@@ -35,9 +35,14 @@ def register():
     if request.method == 'POST' :
         email = request.form['email']
         password = request.form['password']
+        nombre_completo = request.form['nombre']
         try: 
             user = supabase.auth.sign_up({'email': email, 'password' :password})
-            print (user)
+            supabase.table('user_data').insert({
+                'nombre_completo': nombre_completo,
+                'rol_id':2,
+                'user_id':user.user.id
+            }).execute()
             flash('Registro Exitoso', 'success')
             return redirect(url_for('login'))
         except Exception as e:
@@ -52,9 +57,13 @@ def login():
         password = request.form['password']
         try:
             user= supabase.auth.sign_in_with_password({'email': email, 'password' :password})
+            data = supabase.table('user_data').select('*').eq('user_id', user.user.id).execute()
+            print(data.data[0]['id'])
             session['user'] = user.user.id
             session['user_email'] = user.user.email
-            flash('Inicio de Sesion Exitoso', 'success')
+            session['user_nombre'] = data.data[0]['nombre_completo']
+            session['user_rol'] = data.data[0]['rol_id']
+            print(session)
             return redirect(url_for('index'))
         except Exception as e:
             flash(f'Error al Inciar Sesion:{e}', 'danger')
@@ -183,7 +192,7 @@ def edit_article(id):
             flash(f'Error al actualizar el artículo: {e}', 'danger')
             return redirect(url_for('edit_article', id=id))
 
-    return render_template('edit_article.html', articulo=articulo)
+    return render_template('formulario.html', articulo=articulo)
 
 
 
