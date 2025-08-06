@@ -66,17 +66,17 @@ def catalogo():
     if 'user' not in session:
         return redirect (url_for('login'))
     
-    usuario_id = session['user'] 
+    usuario_id = session['user']
+    print(usuario_id) 
     try:
         response = supabase.table('productos').select('*').eq('usuario_id', usuario_id).execute() 
-        productos = response.data
-        return render_template("catalogo.html",  articulos = productos)
+        articulos = response.data
+        print(articulos)
+        return render_template('catalogo.html',  articulos = articulos)
 
     except Exception as e:
         flash(f'Error al cargar articulos:{e}', 'danger')
         return render_template('catalogo.html', articulos = [])
-
-    return render_template("catalogo.html", articulos = [])
 
 @app.route('/logout')
 def logout():
@@ -119,19 +119,20 @@ def create_article():
             flash(f'Error al crear el artículo: {e}', 'danger')
             return redirect(url_for('create_article'))
 
-    return render_template('create_article.html')
+    return render_template('formulario.html')
 
-@app.route('/delete_article/<int: id>', methods=['POST'])
+@app.route('/delete_article/<int:id>', methods=['POST'])
 def delete_article(id):
     if 'user' not in session:
         return redirect (url_for('login'))
 
     usuario_id = session['user'] 
     try:
-        supabase.table('articulos').delete().eq('id', id).eq('usuario_id', usuario_id).execute()
+        supabase.table('productos').delete().eq('id', id).eq('usuario_id', usuario_id).execute()
         flash("Articulo Eliminado Correctamente", 'succes')
     except Exception as e:
         flash(f'Error al Eliminar Articulo:{e}', 'danger')
+        print(e)
     return redirect(url_for('catalogo'))
     
     
