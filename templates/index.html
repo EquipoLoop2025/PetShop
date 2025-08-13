@@ -8,7 +8,10 @@
         <h2>{{articulo.nombre}}</h2>
         <p>{{articulo.descripcion}}</p>
         <p class="price">${{"%.2f"|format(articulo.precio)}}</p>
-        <button type="submit" class="btn btn-primary">{{ accion }}Agregar al carrito</button>
+        <form action="{{url_for('carrito', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro quiere agregar al carrito')" >
+          <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+        </form>
+        
     </div>
     {%else%}
     <p>No hay artículos disponibles en este momento</p>

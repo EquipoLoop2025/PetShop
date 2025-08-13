@@ -146,7 +146,17 @@ def delete_article(id):
     
 @app.route('/carrito')
 def carrito():
-    return render_template("carrito.html") 
+    if 'user' not in session:
+        return redirect (url_for('login'))
+    usuario_id = session['user']
+    try:
+        response = supabase.table('Carrito').select('*,productos(*)').eq('user_id', usuario_id).execute()
+        print(response.data)
+        articulos = response.data
+        return render_template('carrito.html', articulos = articulos)
+    except Exception as e:
+        flash(f'Error al cargar articulos:{e}', 'danger')
+        return render_template('carrito.html', articulos = [])
     
 
 @app.route('/edit_article/<int:id>', methods=['GET', 'POST'])
@@ -196,7 +206,6 @@ def edit_article(id):
             return redirect(url_for('edit_article', id=id))
 
     return render_template('formulario.html', articulo=articulo)
-
 
 
 

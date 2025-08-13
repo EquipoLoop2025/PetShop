@@ -20,12 +20,11 @@
   <tbody>
     {%for articulo in articulos%}
     <tr>
-      <td>{{articulo.nombre}}</td>
-      <td>{{articulo.descripcion}}</td>
-      <td>{{articulo.precio}}</td>
+      <td>{{articulo.productos.nombre}}</td>
+      <td>{{articulo.productos.descripcion}}</td>
+      <td>{{articulo.productos.precio}}</td>
       <td class="actions">
-        <a class="btn btn-secondary" href="{{url_for('index')}}">Editar</a>
-        <form action="{{url_for('delete_article', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro desea quitar')" >
+        <form action="{{url_for('delete_carrito', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro desea quitar')" >
           <button type="submit" class="btn btn-danger">Quitar</button>
         </form>
       </td>
