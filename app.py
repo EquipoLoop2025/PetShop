@@ -197,8 +197,49 @@ def edit_article(id):
 
     return render_template('formulario.html', articulo=articulo)
 
+@app.route('/agregar_carrito/<int:id>', method=['GET', 'POST'])
+def agregar_carrito(id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
 
+    if request.method == 'POST':
+        producto_id = request.form['producto_id']
+        user_id = request.form['user_id']
+        cantidad = request.form['cantidad']
 
+    if not producto_id or not user_id or not cantidad :
+            flash('Todos los campos son obligatorios', 'danger')
+            return redirect(url_for('create_article'))
+
+    try:
+            # Insertar el artículo en la base de datos
+            supabase.table('Carrito').insert({
+                'producto_id': producto_id,
+                'user_id': user_id,
+                'cantidad': cantidad,
+            }).execute()
+            flash('Agrgado al Carrito exitosamente', 'success')
+            return redirect(url_for('index'))
+        except Exception as e:
+            flash(f'Error al agregar al carrito: {e}', 'danger')
+            return redirect(url_for('index'))
+
+    return render_template('formulario.html')
+
+        
+@app.route('/delete_carrito/<int:id>', methods=['POST'])
+def delete_carrito(id):
+    if 'user' not in session:
+        return redirect (url_for('login'))
+
+    usuario_id = session['user'] 
+    try:
+        supabase.table('Carrito').delete().eq('id', id).eq('user_id', usuario_id).execute()
+        flash("Articulo Eliminado Correctamente", 'succes')
+    except Exception as e:
+        flash(f'Error al Eliminar Articulo:{e}', 'danger')
+        print(e)
+    return redirect(url_for('carrito'))
 
 
 
