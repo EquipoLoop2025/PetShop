@@ -6,30 +6,38 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>PetShop</title>
 </head>
-<body>
+<body class="container">
     <header>
+        <div class="logo">
+        <img src="../static/img/logo-2.jpeg" class="" alt="" />
+        <h1>
+          <span class="primary-color">Pet & </span
+          ><span class="secondary-color">Go</span>
+        </h1>
+        </div>
         <nav>
-            <a href="{{url_for('index')}}"class="brand">Mi Tienda</a>
+            
            <ul>
+               <li><a href="{{url_for('index')}}" class="link_button">Inicio</a></li>
+               <li><a href="{{url_for('productos')}}" class="link_button">Productos</a></li>
             {%if session['user'] %}
-                <li><a href="{{url_for('index')}}">Inicio</a></li>
                 {%if session['user_rol'] == 1 %} 
-                <li><a href="{{url_for('catalogo')}}">Mis Artículos</a></li>
+                <li><a href="{{url_for('catalogo')}}" class="link_button">Mis Artículos</a></li>
                 {%endif%}
                 {%if session['user_rol'] == 2 %} 
-                <li><a href="{{url_for('carrito')}}">Mi carrito</a></li>
+                <li><a href="{{url_for('carrito')}}" class="link_button">Mi carrito</a></li>
                 {%endif%}
-                <li><span>Hola, {{session['user_nombre']}}</span></li>
-                <li><a href="{{url_for('logout')}}">Cerrar Sesión</a></li>
+                <li><span class="link_button">Hola, {{session['user_nombre']}}</span></li>
+                <li><a href="{{url_for('logout')}}" class="link_button">Cerrar Sesión</a></li>
             {%else%}
-                <li><a href="{{url_for('login')}}">Inciar Sesión</a></li>
-                <li><a href="{{url_for('register')}}">Registrarse</a></li>
+                <li><a href="{{url_for('login')}}" class="link_button">Inciar Sesión</a></li>
+                <li><a href="{{url_for('register')}}" class="link_button">Registrarse</a></li>
             {%endif%}
            </ul>
         </nav>
     </header>
 
-    <main class="container">
+    <main >
         {%with messages = get_flashed_messages(with_categories=true)%}
             {%if messages%}
                 {%for category, message in messages%}

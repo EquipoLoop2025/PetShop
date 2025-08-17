@@ -19,9 +19,12 @@ key: str = os.environ.get("SUPABASE_KEY")
 
 supabase: Client = create_client(url, key)
 
-
 @app.route('/')
 def index():
+    return render_template('inicio.html')
+
+@app.route('/productos')
+def productos():
     try:
         response = supabase.table('productos').select('*').execute() 
         productos = response.data
@@ -29,6 +32,10 @@ def index():
     except Exception as e:
         flash(f'Error al cargar articulos:{e}', 'danger')
         return render_template('index.html', articulos = [])
+    
+@app.route('/inicio')
+def inicio():
+    return render_template('inicio.html')
 
 @app.route('/register', methods = ['GET','POST'])
 def register():
@@ -221,7 +228,7 @@ def agregar_carrito(id):
                 'user_id': user_id
             }).execute()
             flash('Agrgado al Carrito exitosamente', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('productos'))
         except Exception as e:
             flash(f'Error al agregar al carrito: {e}', 'danger')
             return redirect(url_for('index'))

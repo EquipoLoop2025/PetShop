@@ -1,46 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="articulos-container">
 
-<div class="header-actions">
-    <h1>Mi carrito</h1>
-  </div>
-  
-{% if articulos %}
-
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Descripción</th>
-      <th>Precio</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {%for articulo in articulos%}
-    <tr>
-      <td>{{articulo.productos.nombre}}</td>
-      <td>{{articulo.productos.descripcion}}</td>
-      <td>{{articulo.productos.precio}}</td>
-      <td class="actions">
-        <form action="{{url_for('delete_carrito', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro desea quitar')" >
-          <button type="submit" class="btn btn-danger">Quitar</button>
-        </form>
-      </td>
-    </tr>
+    <div class="header-actions">
+        <h1>Mi carrito</h1>
+    </div>
+      
+    {% if articulos %}
     
-    {% endfor %}
-  </tbody>
-
-</table>
-
-<p></p>
-<a class="btn btn-primary" href="{{url_for('index')}}">Realizar pago</a>
-
-{% else %}
-  <p>No hay ningún producto en el carrito.</p>
-  <a href="{{ url_for('index') }}">Agregar productos a tu carrito</a>
-{% endif %}
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for articulo in articulos%}
+        <tr>
+          <td>{{articulo.productos.nombre}}</td>
+          <td>{{articulo.productos.descripcion}}</td>
+          <td>{{articulo.productos.precio}}</td>
+          <td class="actions">
+            <form action="{{url_for('delete_carrito', id=articulo.id)}}" method="post" onsubmit="return confirm('Seguro desea quitar')" >
+              <button type="submit" class="btn btn-danger">Quitar</button>
+            </form>
+          </td>
+        </tr>
+        
+        {% endfor %}
+      </tbody>
+    
+    </table>
+    
+    <p></p>
+    <a class="btn btn-primary" href="{{url_for('index')}}">Realizar pago</a>
+    
+    {% else %}
+      <p>No hay ningún producto en el carrito.</p>
+      <a href="{{ url_for('index') }}">Agregar productos a tu carrito</a>
+    {% endif %}
+</div>
 
 {% endblock %}
